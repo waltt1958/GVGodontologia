@@ -1,0 +1,10 @@
+C:\inetpub\wwwroot\GVGodontologia\obj\Debug\GVGodontologia.Resources.resources
+C:\inetpub\wwwroot\GVGodontologia\obj\Debug\GVGodontologia.vbproj.GenerateResource.Cache
+C:\inetpub\wwwroot\GVGodontologia\bin\GVGodontologia.dll
+C:\inetpub\wwwroot\GVGodontologia\bin\GVGodontologia.pdb
+C:\inetpub\wwwroot\GVGodontologia\bin\GVGodontologia.xml
+C:\inetpub\wwwroot\GVGodontologia\bin\Microsoft.Web.Infrastructure.dll
+C:\inetpub\wwwroot\GVGodontologia\bin\Microsoft.Web.Infrastructure.xml
+C:\inetpub\wwwroot\GVGodontologia\obj\Debug\GVGodontologia.dll
+C:\inetpub\wwwroot\GVGodontologia\obj\Debug\GVGodontologia.xml
+C:\inetpub\wwwroot\GVGodontologia\obj\Debug\GVGodontologia.pdb

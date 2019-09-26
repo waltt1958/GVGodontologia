@@ -1,0 +1,39 @@
+﻿<%@ Master Language="VB" CodeFile="M.master.vb" Inherits="M" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Clínica odontológica GVG</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+     
+    </asp:ContentPlaceHolder>
+<link rel="stylesheet" type="text/css" href="/estilos/estilo.css">
+</head>
+<body>
+<form id="form1" runat="server">
+<table width="100%" >
+<tr>
+<td>
+    <img src="/imagenes/dienteVerde.jpg" alt="GVG" align="top" height="150px" width="300px" />
+</td>
+<td align="right">
+   <p><b> Hoy es:  <%: WeekdayName(Weekday(DateTime.Now()))%>, <%
+                                                                     Dim fecha As Date
+                                                                     fecha = Now()
+                                                                     Response.Write(fecha.ToString("dd/MM/yyyy"))
+       ':DateTime.Now()%></b></p>
+</td>
+</tr>
+</table>
+<br />
+<h1>CONSULTORIO ODONTOLOGICO GVG</h1>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
