@@ -170,29 +170,31 @@ Partial Class historiaClinica
             sql1 = "Select * from verHistFot where dni= ?"
             Dim cmd1 As New OleDbCommand(sql1, con1)
 
-            '   Try
+
 
             cmd1.Parameters.Add(New OleDbParameter("dni", OleDbType.VarChar, 10))
-            cmd1.Parameters("dni").Value = Session("apellido")
-            oDataReader1 = cmd1.ExecuteReader()
 
+            Try
+                cmd1.Parameters("dni").Value = Session("apellido")
+                oDataReader1 = cmd1.ExecuteReader()
 
-            While oDataReader1.Read
+                While oDataReader1.Read
 
-                historia.Text = oDataReader1("historiaClinica").ToString()
-                nombre.Text = oDataReader1("aYnombre").ToString
+                    historia.Text = oDataReader1("historiaClinica").ToString()
+                    nombre.Text = oDataReader1("aYnombre").ToString
 
-            End While
+                End While
+                oDataReader1.Close()
+                con1.Close()
 
-            'Catch ex As Exception
-            oDataReader1.Close()
-            con1.Close()
-            btnGrabar.Visible = False
-            historia.ReadOnly = True
-            ' Response.Write("<script>window.setTimeout(location.href='buscaHistClinica.aspx', 2000);</script>")
-            con1.Close()
+            Catch ex As Exception
 
-            'End Try
+                btnGrabar.Visible = False
+                historia.ReadOnly = True
+                Response.Write("<script>window.setTimeout(location.href='buscaHistClinica.aspx', 2000);</script>")
+                con1.Close()
+
+            End Try
 
             btnGrabar.Visible = False
             historia.ReadOnly = True
