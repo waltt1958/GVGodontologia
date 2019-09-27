@@ -5,11 +5,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <h3>Historia clínica del paciente</h3>
     <div style="text-align:center">   
-     <asp:TextBox ID="historia" runat="server" BackColor="#FFFFCC" BorderStyle="Solid" Columns="90" MaxLength="10000" ReadOnly="True" Rows="5" style="margin-left: 8px; margin-top: 0px" TextMode="MultiLine" Width="1007px" Font-Bold="True" Font-Size="Larger"></asp:TextBox>
+        <asp:TextBox ID="nombre"  runat="server" BackColor="#FFFFCC" BorderStyle="Solid" Columns="60" ReadOnly="true" Font-Size="Medium"  Font-Bold="true"></asp:TextBox>
+        <br />
+        <asp:TextBox ID="historia" runat="server" BackColor="#FFFFCC" BorderStyle="Solid" Columns="90" MaxLength="10000" ReadOnly="True" Rows="5" style="margin-left: 8px; margin-top: 0px" TextMode="MultiLine" Width="1007px" Font-Bold="True" Font-Size="Larger"></asp:TextBox>
         <br />
         <asp:Button ID="btnGrabar" runat="server" CssClass="button" Text="GRABAR" Visible="False" />
         <asp:Button ID="btnModificar" runat="server" CssClass="button" Text="MODIFICAR" />
-       </div>
+        </div>
 
     <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False" DataSourceID="mostrarHistoria" AllowSorting="True" CellPadding="4" ForeColor="#333333" AllowPaging="True">
         <AlternatingRowStyle BackColor="White" />

@@ -9,6 +9,7 @@ Partial Class historiaClinica
     Inherits System.Web.UI.Page
 
     Protected Sub Subir_Click(sender As Object, e As EventArgs) Handles Subir.Click
+
         If cargArchivo.HasFile Then
             If File.Exists(Server.MapPath("fotosPac/") + cargArchivo.FileName) Then
                 Dim message As String = "El archivo existe. Cambie el nombre y vuelva a cargarlo"
@@ -22,7 +23,6 @@ Partial Class historiaClinica
                 ClientScript.RegisterClientScriptBlock(Me.GetType(), "alert", sb.ToString())
             Else
 
-                cargArchivo.SaveAs("c:\inetpub\wwwroot\GVGodontologia\fotosPac\" & cargArchivo.FileName)
                 Dim insertar As String
                 Dim con As New OleDbConnection
                 Dim ruta1 As String = "/fotosPac/"
@@ -31,22 +31,16 @@ Partial Class historiaClinica
                 insertar = "INSERT INTO fotos (dni, link) VALUES ('" & Session("apellido") & "', '" & ruta & "')"
                 con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Server.MapPath("/bbdd/gvg.accdb")
                 con.Open()
+
                 Try
 
                     Dim cmdInsertar As New OleDbCommand(insertar, con)
                     cmdInsertar.ExecuteNonQuery()
+                    cargArchivo.SaveAs("c:\inetpub\wwwroot\GVGodontologia\fotosPac\" & cargArchivo.FileName)
 
                 Catch ex As Exception
 
-                    Dim message As String = "Expiró la sesión. Vuelva a ingresar"
-                    Dim sb As New System.Text.StringBuilder()
-                    sb.Append("<script type = 'text/javascript'>")
-                    sb.Append("window.onload=function(){")
-                    sb.Append("alert('")
-                    sb.Append(message)
-                    sb.Append("')};")
-                    sb.Append("</script>")
-                    ClientScript.RegisterClientScriptBlock(Me.GetType(), "alert", sb.ToString())
+                    con.Close()
                     Response.Write("<script>window.setTimeout(location.href='buscaHistClinica.aspx', 2000);</script>")
 
                 End Try
@@ -67,6 +61,7 @@ Partial Class historiaClinica
 
         End If
         GridView1.DataBind()
+
     End Sub
 
     Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
@@ -99,13 +94,21 @@ Partial Class historiaClinica
 
         GridView1.DataBind()
 
-
-
     End Sub
 
     Protected Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        btnGrabar.Visible = True
-        historia.ReadOnly = False
+
+        If Session("apellido") = "" Then
+
+            Response.Write("<script>window.setTimeout(location.href='buscaHistClinica.aspx', 2000);</script>")
+
+        Else
+
+            btnGrabar.Visible = True
+            historia.ReadOnly = False
+
+        End If
+
     End Sub
 
     Protected Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
@@ -123,19 +126,27 @@ Partial Class historiaClinica
 
         Dim cmd As New OleDbCommand(sql, con)
         cmd.Parameters.Add(New OleDbParameter("dni", OleDbType.VarChar, 10))
+
+        Try
         cmd.Parameters("dni").Value = Session("apellido")
         oDataReader = cmd.ExecuteReader()
+            If oDataReader.Read() = True Then
 
-        If oDataReader.Read() = True Then
+                actualizar = "UPDATE pacientes SET historiaClinica= '" & historia.Text & "' where dni = '" & Session("apellido").ToString & "'"
+                Dim cmd1 As New OleDbCommand(actualizar, con)
+                cmd1.ExecuteNonQuery()
 
-            actualizar = "UPDATE pacientes SET historiaClinica= '" & historia.Text & "' where dni = '" & Session("apellido").ToString & "'"
-            Dim cmd1 As New OleDbCommand(actualizar, con)
-            cmd1.ExecuteNonQuery()
-            con.Close()
+                btnGrabar.Visible = False
+                historia.ReadOnly = True
 
-        End If
+                oDataReader.Close()
+                con.Close()
 
-        oDataReader.Close()
+            End If
+        Catch ex As Exception
+            Response.Write("<script>window.setTimeout(location.href='buscaHistClinica.aspx', 2000);</script>")
+        End Try
+
         con.Close()
 
         btnGrabar.Visible = False
@@ -144,6 +155,7 @@ Partial Class historiaClinica
     End Sub
 
     Protected Sub historia_Load(sender As Object, e As EventArgs) Handles historia.Load
+
         If Not IsPostBack Then
 
 
@@ -157,21 +169,46 @@ Partial Class historiaClinica
 
             sql1 = "Select * from verHistFot where dni= ?"
             Dim cmd1 As New OleDbCommand(sql1, con1)
+
+            '   Try
+
             cmd1.Parameters.Add(New OleDbParameter("dni", OleDbType.VarChar, 10))
             cmd1.Parameters("dni").Value = Session("apellido")
             oDataReader1 = cmd1.ExecuteReader()
 
+
             While oDataReader1.Read
 
                 historia.Text = oDataReader1("historiaClinica").ToString()
+                nombre.Text = oDataReader1("aYnombre").ToString
+
             End While
 
-
+            'Catch ex As Exception
             oDataReader1.Close()
             con1.Close()
             btnGrabar.Visible = False
             historia.ReadOnly = True
+            ' Response.Write("<script>window.setTimeout(location.href='buscaHistClinica.aspx', 2000);</script>")
+            con1.Close()
+
+            'End Try
+
+            btnGrabar.Visible = False
+            historia.ReadOnly = True
+
         End If
+
+    End Sub
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        If Session("apellido") = "" Then
+
+            Response.Write("<script>window.setTimeout(location.href='buscaHistClinica.aspx', 2000);</script>")
+
+        End If
+
     End Sub
 
 End Class

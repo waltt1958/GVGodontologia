@@ -6,7 +6,9 @@ Partial Class buscaHistClinica
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         buscaApe.Focus()
+
     End Sub
 
     Protected Sub btVERIFICA_Click(sender As Object, e As EventArgs) Handles btVERIFICA.Click
