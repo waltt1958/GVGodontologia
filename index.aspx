@@ -12,6 +12,7 @@
         <br />
         <br />
     <asp:Button ID="historiaClinica" runat="server"  CssClass="button" Text="HISTORIA CLINICA" PostBackUrl="~/buscaHistClinica.aspx" Width="250px" />
+    <asp:Button ID="consGeneral" runat="server"  CssClass="button" Text="CONSULTAS GENERALES" PostBackUrl="~/consGeneral.aspx" Width="250px" />
 
     </div>
     
