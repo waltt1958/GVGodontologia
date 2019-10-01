@@ -1,4 +1,11 @@
-﻿
+﻿Imports System.Net.Mail
+Imports System.Data.OleDb
+Imports System.Data.OleDb.OleDbDataReader
+Imports Microsoft.VisualBasic
+Imports System.Web.Services.Description
+Imports System.IO
+
+
 Partial Class cumpleanosDefault
     Inherits System.Web.UI.Page
 
@@ -8,8 +15,18 @@ Partial Class cumpleanosDefault
 
     End Sub
 
+    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
 
-    Protected Sub conexCumpleanos_Selecting(sender As Object, e As SqlDataSourceSelectingEventArgs) Handles conexCumpleanos.Selecting
+        Dim mensaje, saludo, saludoFinal, direccion As String
+
+        mensaje = "GVG Odongologia le desea que pase un muy feliz cumpleaños."
+        saludo = "Afectuoso saludo de"
+        saludoFinal = " Dra. Guadalupe Vicente Galan"
+        direccion = "España xxx - Rosario // Telefono: 4251589"
+
+
+
 
     End Sub
+
 End Class
