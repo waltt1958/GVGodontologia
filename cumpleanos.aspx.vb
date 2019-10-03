@@ -1,10 +1,11 @@
 ﻿Imports System.Net.Mail
+Imports System.Net
 Imports System.Data.OleDb
 Imports System.Data.OleDb.OleDbDataReader
 Imports Microsoft.VisualBasic
 Imports System.Web.Services.Description
 Imports System.IO
-
+Imports System.Text
 
 Partial Class cumpleanosDefault
     Inherits System.Web.UI.Page
@@ -20,15 +21,16 @@ Partial Class cumpleanosDefault
         Dim saludo, despedida, firma, especialidad, direccion As String
 
         Dim mensaje As New System.Net.Mail.MailMessage()
-        Dim smtp As New System.Net.Mail.SmtpClient()
+        Dim smtp As New System.Net.Mail.SmtpClient("127.0.0.1")
+
 
         'configuracion smtp
 
         smtp.Credentials = New System.Net.NetworkCredential("ovidiov1958@gmail.com", "corazones1958")
-        smtp.Host = "smtp.gmail.com"
-        smtp.Port = 587 ' 465
-        smtp.EnableSsl = True
 
+        smtp.Host = "smtp.gmail.com"
+        smtp.Port = 25 ' 587 465
+        smtp.EnableSsl = True
 
         'configuracion del mensaje
 
@@ -40,11 +42,14 @@ Partial Class cumpleanosDefault
 
         'correo al que le envío el mail
         Dim mailPara As String
-        mailPara = GridView1.Rows(GridView1.SelectedIndex).Cells(7).Text
-        mensaje.To.Add(mailPara.ToString)
+        mailPara = GridView1.Rows(GridView1.SelectedIndex).Cells(7).Text.ToString
+        mensaje.To.Add(mailPara)
 
         'quien envía el correo
         mensaje.From = New System.Net.Mail.MailAddress("ovidiov1958@gmail.com", "Dra. Guadalupe Vicente Galan", System.Text.Encoding.UTF8)
+
+        'a donde se responden los mails
+        mensaje.ReplyToList.Add("ovidiov1958@gmail.com")
 
         'asunto del mail
         mensaje.Subject = "SALUTACION POR SU CUMPLEAÑOS"
