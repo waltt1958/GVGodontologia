@@ -29,7 +29,7 @@ Partial Class cumpleanosDefault
         smtp.Credentials = New System.Net.NetworkCredential("ovidiov1958@gmail.com", "corazones1958")
 
         smtp.Host = "smtp.gmail.com"
-        smtp.Port = 25 ' 587 465
+        smtp.Port = 587 '25 465
         smtp.EnableSsl = True
 
         'configuracion del mensaje
