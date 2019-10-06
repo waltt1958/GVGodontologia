@@ -78,19 +78,28 @@ Partial Class cumpleanosDefault
         Dim plainView As AlternateView = AlternateView.CreateAlternateViewFromString(plano, Nothing, System.Net.Mime.MediaTypeNames.Text.Plain)
 
         'texto html
-        Dim html As String = "<h2><B>GVGodontología le desea que pase un muy feliz cumpleaños en compañia de sus afectos</b></h2>" & vbCrLf _
+        Dim html As String = "<html><body><h2><B>GVGodontología le desea que pase un muy feliz cumpleaños en compañia de sus afectos</b></h2>" & vbCrLf _
          & "Dado que la salud bucal es nuestra prioridad, lo invitamos a comunicarse al teléfono 4251589<br>" _
          & "para obtener un turno a fin de que le realicemos un control de su salud bucal sin cargo.<br><br> " _
          & "Afectuoso saludo de<br>" _
          & "<b>Dra. Guadalupe Vicente Galan<br>" _
          & "<b>Odontóloga Especialista en Estética Dental - Mat. Nacional xxxxxx<br>" _
          & "<b>Universidad de Rosario y Universidad de Buenos Aires<br>" _
-         & "<b>España 505 - 1er Piso - Rosario - Telefono 4251589img"
+         & "<b>España 505 - 1er Piso - Rosario - Telefono 4251589"
+
+        Dim imagen As String = "img src=cid:pic1</body></html>"
+
 
         Dim htmlview = AlternateView.CreateAlternateViewFromString(html, Nothing, System.Net.Mime.MediaTypeNames.Text.Html)
+        Dim pic1 As LinkedResource = New LinkedResource("C:\inetpub\wwwroot\GVGodontologia\imagenes\dienteVerde.jpg", System.Net.Mime.MediaTypeNames.Image.Jpeg)
+        pic1.ContentId = "Pic1"
 
-        mensaje.AlternateViews.Add(plainView)
+        htmlview.LinkedResources.Add(pic1)
+
         mensaje.AlternateViews.Add(htmlview)
+        mensaje.AlternateViews.Add(plainView)
+
+
         'fin de darle forma al mensaje
 
         Try
@@ -121,6 +130,7 @@ Partial Class cumpleanosDefault
 
         End Try
 
+        GridView1.SelectedIndex = -1
     End Sub
 
 End Class
