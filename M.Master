@@ -20,9 +20,9 @@
 </td>
 <td align="right">
    <p><b> Hoy es:  <%: WeekdayName(Weekday(DateTime.Now()))%>, <%
-                                                                     Dim fecha As Date
-                                                                     fecha = Now()
-                                                                     Response.Write(fecha.ToString("dd/MM/yyyy"))
+                                                                    Dim fecha As Date
+                                                                    fecha = Now()
+                                                                    Response.Write(fecha.ToString("dd/MM/yyyy"))
        ':DateTime.Now()%></b></p>
 </td>
 </tr>
