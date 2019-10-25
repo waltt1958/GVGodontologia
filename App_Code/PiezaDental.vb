@@ -1,5 +1,5 @@
 ﻿Imports Microsoft.VisualBasic
 
-Public Class PiezaDental
-
+Public Class piezaDental
+    
 End Class
