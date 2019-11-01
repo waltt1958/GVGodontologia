@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing
+Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
 
 
@@ -6,7 +7,8 @@ Partial Class aa1
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        ' Dim image As New System.Drawing.Bitmap(33, 24)
+
+        '' Dim image As New System.Drawing.Bitmap(33, 24)
         Dim image As New System.Drawing.Bitmap(42, 32)
         Dim g As System.Drawing.Graphics
         g = System.Drawing.Graphics.FromImage(image)
@@ -45,9 +47,12 @@ Partial Class aa1
         g.DrawPolygon(pen, New Point() {pt1, pt3, pt7, pt5})
         'lateral derecho
         g.DrawPolygon(pen, New Point() {pt2, pt4, pt8, pt6})
+        ' centro
+        g.DrawPolygon(pen, New Point() {pt7, pt5, pt6, pt8})
 
         Page.Response.ContentType = "image/png"
         image.Save(Page.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Png)
 
     End Sub
+
 End Class
